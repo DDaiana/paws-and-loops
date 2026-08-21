@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624 164" role="img" aria-labelledby="title desc">
+  <title id="title">Paws &amp; Loops</title><desc id="desc">Crochet wear for dogs and cats</desc>
+  <g fill="none" stroke="#79513A" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 105c19 3 29-2 40-18 8-11 15-28 27-37 11-8 26-10 38-5 14 6 22 20 19 34-3 15-18 27-34 26-17-1-30-15-29-31 1-14 14-27 29-27 15 0 27 12 27 26 0 13-11 24-24 25-12 1-23-8-24-20-1-10 7-20 18-22 10-2 19 4 22 13" stroke-width="2.3"/>
+    <path d="M26 109c22 4 35-5 46-24M89 48c16 9 30 25 40 47M82 62c20 3 39 12 55 26M94 45c-3 20 4 42 19 59M140 91c13 4 22 12 27 23 3 7 9 11 18 10" stroke-width="1.35"/>
+    <path d="M21 108c17 5 34 1 45-11M96 50c15 8 29 23 39 40" stroke-width=".7" opacity=".5"/>
+  </g>
+  <text x="182" y="90" fill="#1A1512" font-family="Cormorant Garamond, Georgia, serif" font-size="55" font-weight="600" letter-spacing="-.8">Paws &amp; Loops</text>
+  <path d="M184 100c114 2 236 1 354-1" fill="none" stroke="#B58A70" stroke-width=".75" opacity=".65"/>
+  <text x="185" y="124" fill="#79513A" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="2.2">CROCHET WEAR FOR DOGS &amp; CATS</text>
+</svg>
