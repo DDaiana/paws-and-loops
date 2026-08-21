@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-base=".." data-page="contact">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Contact Paws & Loops about a handmade crochet piece.">
+  <title>Contact | Paws & Loops</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body><a class="skip-link" href="#main-content">Skip to content</a><div id="site-header"></div>
+<main id="main-content" class="internal-page contact-page">
+  <section class="contact-layout">
+    <div class="contact-content">
+      <header class="page-heading contact-heading"><h1>CONTACT</h1><div class="divider-motif" aria-hidden="true"><span></span><img src="../assets/icons/heart.svg" alt=""><span></span></div><p>Have a question or something in mind?<br>I'd love to hear from you.</p></header>
+      <form id="contact-form" class="form" novalidate>
+        <label for="contact-name">NAME <span>*</span></label><input id="contact-name" name="name" autocomplete="name" required placeholder="Your name"><p class="field-error" data-error-for="contact-name"></p>
+        <label for="contact-subject">SUBJECT <span>*</span></label><select id="contact-subject" name="subject" required><option value="">How can I help?</option><option>Custom order</option><option>Sizing question</option><option>Existing order</option><option>Other</option></select><p class="field-error" data-error-for="contact-subject"></p>
+        <label for="contact-message">MESSAGE <span>*</span></label><textarea id="contact-message" name="message" required placeholder="Tell me about your idea..."></textarea><p class="field-error" data-error-for="contact-message"></p>
+        <button class="button button-primary" type="submit">SEND MESSAGE</button><p class="form-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div><div id="modal-root"></div><script src="../script.js"></script></body>
+</html>
