@@ -17,7 +17,8 @@ export default async function handler(req, res) {
   try {
     await sendWebsiteEmail({ subject: "Paws & Loops — New Contact Message", text });
     return res.status(200).json({ ok: true });
-  } catch {
+  } catch (error) {
+    console.error(`Contact email delivery failed: ${error?.code || "UNKNOWN"} ${error?.responseCode || ""} ${error?.command || ""}`);
     return res.status(500).json({ error: "Email delivery failed." });
   }
 }
