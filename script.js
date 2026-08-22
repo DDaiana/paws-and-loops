@@ -1,5 +1,6 @@
 const BASE = document.documentElement.dataset.base || ".";
 const PAGE = document.documentElement.dataset.page || "home";
+const API_BASE = String(window.PAWS_API_BASE || "").replace(/\/$/, "");
 
 const navItems = [
   ["home", "HOME", `${BASE}/`],
@@ -64,11 +65,12 @@ function ProcessStep(step, index) {
 
 function ConsultationForm() {
   return `<form id="consultation-form" class="form modal-form" novalidate>
-    <label for="order-name">NAME <span>*</span></label><input id="order-name" name="name" autocomplete="name" required placeholder="Your name"><p class="field-error" data-error-for="order-name"></p>
+    <div class="honeypot" aria-hidden="true"><label for="order-website">Website</label><input id="order-website" name="website" tabindex="-1" autocomplete="off"></div>
+    <label for="order-name">NAME <span>*</span></label><input id="order-name" name="name" autocomplete="name" required maxlength="100" placeholder="Your name"><p class="field-error" data-error-for="order-name"></p>
     <label for="order-date">PREFERRED DATE &amp; TIME <span>*</span></label><input id="order-date" name="datetime" type="datetime-local" required><p class="field-error" data-error-for="order-date"></p>
-    <label for="order-place">PLACE OF CONSULTATION <span>*</span></label><input id="order-place" name="place" required placeholder="Your preferred place"><small>E.g. a café, your home, a park - anywhere convenient for you.</small><p class="field-error" data-error-for="order-place"></p>
-    <label for="order-phone">PHONE <span>*</span></label><input id="order-phone" name="phone" type="tel" autocomplete="tel" required placeholder="Your phone number"><p class="field-error" data-error-for="order-phone"></p>
-    <label for="order-email">EMAIL <span>*</span></label><input id="order-email" name="email" type="email" autocomplete="email" required placeholder="Your email address"><p class="field-error" data-error-for="order-email"></p>
+    <label for="order-place">PLACE OF CONSULTATION <span>*</span></label><input id="order-place" name="place" required maxlength="250" placeholder="Your preferred place"><small>E.g. a café, your home, a park - anywhere convenient for you.</small><p class="field-error" data-error-for="order-place"></p>
+    <label for="order-phone">PHONE <span>*</span></label><input id="order-phone" name="phone" type="tel" autocomplete="tel" required maxlength="50" placeholder="Your phone number"><p class="field-error" data-error-for="order-phone"></p>
+    <label for="order-email">EMAIL <span>*</span></label><input id="order-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="Your email address"><p class="field-error" data-error-for="order-email"></p>
     <button class="button button-primary button-full" type="submit">BOOK CONSULTATION</button><p class="form-status" aria-live="polite"></p>
   </form>`;
 }
@@ -139,10 +141,36 @@ function validateForm(form) {
   return valid;
 }
 
-document.querySelectorAll(".form").forEach(form => form.addEventListener("submit", event => {
+document.querySelectorAll(".form").forEach(form => form.addEventListener("submit", async event => {
   event.preventDefault();
   if (!validateForm(form)) return;
   const status = form.querySelector(".form-status");
-  status.textContent = form.id === "contact-form" ? "Thank you — your message is ready to send." : "Thank you — your consultation details have been recorded.";
-  form.reset();
+  const button = form.querySelector('button[type="submit"]');
+  const originalLabel = button.textContent;
+  const isContact = form.id === "contact-form";
+  button.disabled = true;
+  button.textContent = isContact ? "SENDING..." : "BOOKING...";
+  status.className = "form-status";
+  status.textContent = "";
+  try {
+    if (!API_BASE) throw new Error("Submission service is not configured.");
+    const payload = Object.fromEntries(new FormData(form).entries());
+    const response = await fetch(`${API_BASE}/api/${isContact ? "contact" : "consultation"}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error("Submission failed.");
+    status.classList.add("success");
+    status.textContent = isContact
+      ? "Thank you — your message has been sent."
+      : "Thank you — your consultation request has been sent. We’ll be in touch soon.";
+    form.reset();
+  } catch {
+    status.classList.add("error");
+    status.textContent = "Something went wrong. Please try again.";
+  } finally {
+    button.disabled = false;
+    button.textContent = originalLabel;
+  }
 }));
