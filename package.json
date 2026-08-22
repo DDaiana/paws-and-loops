@@ -1,0 +1,16 @@
+{
+  "name": "paws-and-loops-email-api",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "check": "node --check script.js && node --check api/contact.js && node --check api/consultation.js && node --check lib/email.js && node --check lib/http.js && node --check lib/validation.js",
+    "test": "node tests/email-api.test.mjs"
+  },
+  "dependencies": {
+    "nodemailer": "^7.0.6"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
